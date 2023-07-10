@@ -2,7 +2,7 @@
 node_modules/
 
 # Ignore .env files that may contain sensitive information
-.env
+
 
 # Ignore log files
 logs/
