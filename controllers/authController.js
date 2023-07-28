@@ -38,7 +38,7 @@ const result = await foundUser.save();
 console.log(result);
 
 res.cookie('jwt', refreshToken, { httpOnly: true, sameSite: 'None', maxAge: 24 * 60 * 60 * 1000 });// same site and secure property required only when testing with chrome ie, ( secure: true )
- res.json({accessToken})
+res.json({ accessToken, user: foundUser });
 } else {
   res.sendStatus(401);
 }
