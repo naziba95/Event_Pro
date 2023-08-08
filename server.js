@@ -14,7 +14,6 @@ const connectDB = require('./config/dbCon');
 const PORT = process.env.PORT || 3000;
 const eventRoutes = require('./routes/api/eventRoutes');
 const bodyParser = require('body-parser');
-const passwordResetRoutes = require('./routes/api/passwordResetRoutes');
 const changePasswordRoute = require('./routes/api/changePasswordRoute');
 
 const passwordResetRouteOTP = require('./routes/api/passwordResetRouteOTP');
@@ -22,8 +21,8 @@ const passwordResetRouteOTP = require('./routes/api/passwordResetRouteOTP');
 
 const scheduleEventRoute = require('./routes/api/scheduleEventRoute');
 const verifyToken = require('./middleware/verifyToken');
-
-
+const userProfileRoute = require('./routes/api/userProfileRoute');
+const scheduleWishCardRoute = require('./routes/api/scheduleWishCardRoute'); // Import the new router
 
 
 
@@ -59,6 +58,9 @@ app.use(cookieParser());
  app.use('/auth', require('./routes/auth'));
  app.use('/register', require('./routes/register'));
 
+// Password Reset Routes OTP
+app.use('/api', passwordResetRouteOTP);
+
 // protect routes using JWT authentication
  app.use(verifyJWT);
 
@@ -68,14 +70,16 @@ app.use('/refresh', require('./routes/refresh'));
 app.use('/logout', require('./routes/logout'));  
 // Use event routes
 app.use('/api', eventRoutes);
-// Password Reset Routes
-app.use('/api', passwordResetRoutes);
-// app.use('/api', scheduleEventRoutes);
-// Password Reset Routes OTP
-app.use('/api', passwordResetRouteOTP);
+
 
 // Change Password Routes
 app.use('/api', changePasswordRoute);
+
+// user profile route
+app.use('/api', userProfileRoute);
+
+app.use('/api', scheduleWishCardRoute); // Use the new router
+
 
 app.all('*', (req, res) => {
   res.status(404);

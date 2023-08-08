@@ -12,9 +12,14 @@ const verifyJWT = (req, res, next) => {
       return res.sendStatus(403); // Invalid token
     }
 
-    req.user = decoded; // Store the decoded token payload in req.user
-
     // console.log(decoded);
+
+    req.user = {
+      userId: decoded.UserInfo._id,
+      email: decoded.UserInfo.email,
+    };
+
+    // console.log(req.user);
     next();
   });
 };

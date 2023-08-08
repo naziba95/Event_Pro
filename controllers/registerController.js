@@ -14,7 +14,7 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-const sendWelcomeEmail = (user) => {
+const sendWelcomeEmail = async (user) => {
   const mailOptions = {
     from: 'jdonenaziba@gmail.com',
     to: user.email,
@@ -22,7 +22,7 @@ const sendWelcomeEmail = (user) => {
     text: `Dear ${user.name},\n\nWelcome to our app! We're excited to have you on board.\n\nBest regards,\nThe App Team`,
   };
 
-  transporter.sendMail(mailOptions, (error, info) => {
+  const info = await transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
       console.log('Error sending welcome email:', error);
     } else {

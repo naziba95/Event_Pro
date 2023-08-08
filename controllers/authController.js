@@ -8,6 +8,12 @@ const jwt = require('jsonwebtoken');
   const {email, pwd} = req.body;
   if (!email || !pwd) return res.status(400).json({'message': 'username and password are required'})
   const foundUser = await User.findOne({ email: email}).exec(); 
+
+  // // console.log(foundUser);
+  // console.log(foundUser.email);
+  // console.log(foundUser.name);
+  // console.log(foundUser._id);
+
   if (!foundUser) return res.sendStatus(401); //unauthorized
 // evaluate password
 const match = await bcrypt.compare(pwd, foundUser.password);
@@ -17,9 +23,9 @@ if (match) {
   // create JWTs
   const accessToken = jwt.sign(
     { 
-      "UserInfo": {
-      "email": foundUser.email,
-      // "roles": roles 
+      UserInfo: {
+      userId: foundUser._id,
+      email:foundUser.email
         }
     },
     
@@ -27,15 +33,22 @@ if (match) {
     { expiresIn: '1d'}
   );
   const refreshToken = jwt.sign(
-    {"email": foundUser.email},
+    { 
+      UserInfo: {
+      userId: foundUser._id,
+      email:foundUser.email
+        }
+    },
     process.env.REFRESH_TOKEN_SECRET,
     { expiresIn: '1d'}
   );
+
+  // console.log(accessToken.UserInfo);
 // saving refreshToken with current user
   
 foundUser.refreshToken = refreshToken;
 const result = await foundUser.save();
-console.log(result);
+// console.log(result);
 
 res.cookie('jwt', refreshToken, { httpOnly: true, sameSite: 'None', maxAge: 24 * 60 * 60 * 1000 });// same site and secure property required only when testing with chrome ie, ( secure: true )
 res.json({ accessToken, user: foundUser });
