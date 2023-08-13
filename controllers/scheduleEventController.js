@@ -2,7 +2,7 @@ const ScheduleEvent = require('../model/scheduleEvent');
 
 const createEvent = async (req, res) => {
   try {
-    const { eventName, date, time, eventDescription, userId } = req.body;
+    const { eventName, date, time, eventDescription, eventTypes, userId } = req.body;
     // const userId = req.user._id; // Access the user's ID from req.user
 
     console.log(userId);
@@ -12,6 +12,7 @@ const createEvent = async (req, res) => {
       date,
       time,
       eventDescription,
+      eventTypes, 
       userId,
     });
 

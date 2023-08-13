@@ -15,9 +15,15 @@ const scheduleWishSchema = new mongoose.Schema({
     required: true,
   },
   wishTime: {
-    type: Date,
+    type: String,
     required: true,
   },
+
+  recipientEmail: {
+    type: String,
+    required: true,
+  },
+
   userId: {
     type: Schema.Types.ObjectId,
     ref: 'User',

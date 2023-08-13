@@ -1,5 +1,6 @@
 const UserProfile = require('../model/userProfile');
 
+
 // Create a user profile
 const createUserProfile = async (req, res) => {
   try {

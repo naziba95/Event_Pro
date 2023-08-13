@@ -18,6 +18,12 @@ const scheduleEventSchema = new Schema({
     type: String,
     required: true,
   },
+
+  eventTypes: [{
+    type: String,
+    required: true,
+  }],
+  
   userId: {
     type: Schema.Types.ObjectId,
     ref: 'User',

@@ -14,9 +14,12 @@ const userProfileSchema = new mongoose.Schema({
   bio: {
   type: String
   },
-  interests: {
-  type: String
-  },
+
+  interests: [{
+    type: String,
+    required: true,
+  }],
+
   phone: {
     type: String
     },
