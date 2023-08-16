@@ -65,8 +65,7 @@ const handleNewUser = async (req, res) => {
     // Send a welcome email to the user
     sendWelcomeEmail(result);
 
-    // console.log(result);
-
+    // Return the token in the response
     res.status(201).json({ success: `New user ${name} created`, user: result });
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -74,3 +73,4 @@ const handleNewUser = async (req, res) => {
 };
 
 module.exports = { handleNewUser };
+

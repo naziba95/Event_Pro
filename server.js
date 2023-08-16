@@ -54,9 +54,11 @@ app.use(cookieParser());
 
  app.use('/api', scheduleEventRoute);
 
-// Sign on and register route should be accessible before token generation
+// Sign on and register route should be accessible without token generation
  app.use('/auth', require('./routes/auth'));
  app.use('/register', require('./routes/register'));
+// refresh token route
+ app.use('/refresh', require('./routes/refresh'));
 
 // Password Reset Routes OTP
 app.use('/api', passwordResetRouteOTP);
@@ -66,7 +68,7 @@ app.use('/api', passwordResetRouteOTP);
 
 // routes
 app.use('/', require('./routes/root'));   // endpoint and route handler 
-app.use('/refresh', require('./routes/refresh'));
+
 app.use('/logout', require('./routes/logout'));  
 // Use event routes
 app.use('/api', eventRoutes);

@@ -30,7 +30,7 @@ if (match) {
     },
     
     process.env.ACCESS_TOKEN_SECRET,
-    { expiresIn: '15m'}
+    { expiresIn: '1d'}
   );
   const refreshToken = jwt.sign(
     { 
@@ -40,7 +40,7 @@ if (match) {
         }
     },
     process.env.REFRESH_TOKEN_SECRET,
-    { expiresIn: '1d'}
+    { expiresIn: '30d'}
   );
 
   // console.log(accessToken.UserInfo);
